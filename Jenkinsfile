@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("index.alauda.cn/alaudaorg/build-test:ruicao-01")
+        app = docker.build("mirake/build-test")
     }
 
     stage('Test image') {
@@ -28,7 +28,7 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://index.alauda.cn', 'alauda-hub-credentials') {
+        docker.withRegistry('https://hub.docker.com', 'github-mirake') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
